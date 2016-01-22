@@ -1,16 +1,26 @@
-import Point from './Point.js';
 import lodash from 'lodash';
-import {getJson} from './get-json.js';
+import {xhr} from './request.js';
+import { addElement } from './addElement.js';
 
-var stuff = getJson();
+var btn = document.getElementById('btn');
 
-var users = [
-  { 'user': 'barney',  'age': 36, 'active': true },
-  { 'user': 'fred',    'age': 40, 'active': false },
-  { 'user': 'pebbles', 'age': 1,  'active': true }
-];
+var btnClicked = function(event){
+  var xhr = new XMLHttpRequest();
 
-var first = _.find(users, 'active');
+  xhr.open("GET", 'http://localhost:3000');
 
-var body = document.querySelector('body');
-body.textContent = 'Good point: ' + first.age;
+  xhr.setRequestHeader('Access-Control-Allow-Origin', 'true');
+
+  xhr.send();
+
+  xhr.onload = function(e){
+    addElement(undefined, this.responseText);
+  };
+
+  xhr.onError = function(){
+    console.log('onError');
+  };
+
+};
+
+btn.addEventListener('click', btnClicked);
