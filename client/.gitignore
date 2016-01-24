@@ -5,3 +5,4 @@ bower_components
 # Built by webpack
 bundle.js
 bundle.js.map
+npm-debug.log

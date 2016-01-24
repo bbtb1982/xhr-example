@@ -1,5 +1,5 @@
 import _ from 'lodash';
-function addElement(id,text) {
+function createTextElement(id,text) {
 
   var text = text || 'empty text';
   var id = id || `response_${_.random(1, 100)}`;
@@ -8,8 +8,8 @@ function addElement(id,text) {
 
   el.id = id+'';
   el.appendChild(content);
-  document.body.appendChild(el);
+  return el;
 
 }
 
-export {addElement};
+export {createTextElement};
