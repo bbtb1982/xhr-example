@@ -22,7 +22,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            {loader: 'babel-loader', test: path.join(__dirname, 'es6'), query: { presets: 'es2015' }}
+          { test: path.join(__dirname, 'es6'), loader: 'babel-loader', query: { presets: 'es2015' }},
         ]
     },
     resolve: {

@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import $ from 'jQuery';
 
-
 /*******************************************************************************
 * @method gen_file_array
 * @param count {Number}  number of items to return in array.
@@ -93,17 +92,16 @@ $('#btn-promise-manual').click(function(e){
 
 
 $('#btn-promise-all').click(function(e){
-  console.log('BTN-PROMISE-ALL');
-  var pArray = [];
+  var pArray = gen_file_array(_.random(3,10)).map(function(file){
+    return ajax_request(file);
+  });
 
-  pArray.push(ajax_request('file1'));
-  pArray.push(ajax_request('file2'));
-  pArray.push(ajax_request('file3'));
+  console.log(`BTN-PROMISE-ALL: ${pArray.length}` );
 
-  var pAll = Promise.all(pArray).then(function([p1, p2, p3]){
-    console.log(p1);
-    console.log(p2);
-    console.log(p3);
+  var pAll = Promise.all(pArray).then(function(values){
+    values.forEach(function(value){
+      console.log(value);
+    })
     return 'done';
   }).then(function(value){
     console.log(value)
@@ -115,10 +113,9 @@ $('#btn-promise-all').click(function(e){
 * promises reduce
 *******************************************************************************/
 
-
 $('#btn-promise-reduce').click(function(e){
   var fileArray = gen_file_array(_.random(3,10));
-  console.log(`BTN-PROMISE-ALL: ${fileArray.length}` );
+  console.log(`BTN-PROMISE-REDUCE: ${fileArray.length}` );
 
   fileArray.map(function(file){
     return ajax_request(file);

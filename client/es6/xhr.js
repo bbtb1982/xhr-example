@@ -1,36 +1,44 @@
 import lodash from 'lodash';
-import {ajax_request} from './request';
-import { createTextElement } from './createTextElement';
+import $ from 'jQuery';
 
-// var btn = document.getElementById('btn');
-var btnEl = createTextElement('btn', 'btn');
-var body = document.getElementsByTagName('body')[0];
+/*******************************************************************************
+* ajax_request
+* @Param {String}
+* @Param {Function}
+*******************************************************************************/
+function ajax_request(url, callback) {
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function()
+  {
+    if (request.readyState == 4 && request.status == 200){
+      callback(request.responseText); // Another callback here
+    }
+  };
+  request.open('GET', url);
+  request.send();
+}
 
-body.appendChild(btnEl);
+/*******************************************************************************
+* ajax_callback
+* @Param {String}
+* @Param {Function}
+*******************************************************************************/
+function ajax_callback(responseText){
+  var text = (responseText || 'no text');
+  $('body').append('yourmama');
+}
+
+/*******************************************************************************
+* Create BTN
+*******************************************************************************/
+$('body').append('<div id="btn">XHR BTN</div>');
 
 var btn = document.getElementById('btn');
-
 var btnClicked = function(event){
   var xhr = new XMLHttpRequest();
   var baseURL = 'http://localhost:8080/webpack-dev-server';
-  var url = 'http://localhost:8080/webpack-dev-server/json/tweets.json';
-
-  xhr.open("GET", url);
-
-  xhr.setRequestHeader('Access-Control-Allow-Origin', 'true');
-
-  xhr.send();
-
-  xhr.onload = function(e){
-    var el = createTextElement(undefined, this.responseText);
-    body.appendChild(el);
-  };
-
-  xhr.onError = function(){
-    console.log('onError');
-  };
-
+  var url = `${baseURL}/json/tweets.json`;
+  ajax_request(url, ajax_callback);
 };
 
 btn.addEventListener('click', btnClicked);
-;
