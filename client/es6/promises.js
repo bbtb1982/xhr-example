@@ -62,7 +62,7 @@ $('#btn-promise').click(function(e){
 });
 
 /*******************************************************************************
-* promises manual chanin.
+* promises manual chaning.
 *******************************************************************************/
 
 $('#btn-promise-manual').click(function(e){
@@ -120,6 +120,10 @@ $('#btn-promise-reduce').click(function(e){
   fileArray.map(function(file){
     return ajax_request(file);
   })
+
+  // need to add an initialize function to handel the first call and offset the
+  // the resutls as needed
+
   .reduce( function(prev, cur, curIdx, array){
     return prev.then(function(value){
       // catch last member of array
@@ -137,4 +141,4 @@ $('#btn-promise-reduce').click(function(e){
       }
     });
   });
-});;
+});

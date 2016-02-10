@@ -9,9 +9,10 @@ var distDir = rootDir + '/dist';
 module.exports = {
     context: rootDir,
     entry:{
-      callback: srcDir + '/callback.js',
+      callbacks: srcDir + '/callbacks.js',
       xhr: srcDir + '/xhr.js',
       promises: srcDir + '/promises.js',
+      generators: srcDir + '/generators.js',
     },
     output: {
         path: distDir,
